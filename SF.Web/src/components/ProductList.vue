@@ -3,7 +3,11 @@
   <h1>Products</h1>
   <div class="row">
     <div class="col-md-9">
-      <product-detail-card></product-detail-card>
+      
+      <div class="col-md-3" v-for="product in products"> 
+        <product-detail-card :product="product" track-by="id"></product-detail-card>        
+      </div>
+
     </div>
     <div class="col-md-3">
       <shopping-cart></shopping-cart>
@@ -16,7 +20,7 @@
 <script>
 import ProductDetailCard from './ProductDetailCard.vue'
 import ShoppingCart from './ShoppingCart.vue'
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'product-list',
@@ -29,6 +33,9 @@ export default {
 
     }
   },
+  computed: mapState({
+    products: state => state.products.all
+  }),
   methods: mapActions([
     'getProducts'
   ]),

@@ -3,6 +3,10 @@ const state = {
 }
 
 const mutations = {
+  RETRIEVE_CART (state) {
+
+  },
+
   ADD_TO_CART (state, productId) {
     const record = state.contents.find(product => product.id === productId)
 

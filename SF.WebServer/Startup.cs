@@ -5,6 +5,7 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Cors;
+using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(SF.WebServer.Startup))]
 
@@ -20,6 +21,9 @@ namespace SF.WebServer
 
             httpConfig.MapHttpAttributeRoutes();
             httpConfig.MessageHandlers.Add(new ClientTagger());
+
+            httpConfig.Formatters.JsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            httpConfig.Formatters.JsonFormatter.UseDataContractJsonSerializer = false;
             httpConfig.Formatters
                 .JsonFormatter
                 .MediaTypeMappings

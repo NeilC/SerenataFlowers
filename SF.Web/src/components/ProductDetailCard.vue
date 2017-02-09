@@ -1,7 +1,7 @@
 <template>
 <div class="item active">
   <div class="row">
-    <div class="col-sm-3">
+    <div class="col-sm-12">
       <div class="col-item">
         <div class="photo">
           <img src="http://placehold.it/350x260" class="img-responsive" alt="a" />
@@ -10,17 +10,21 @@
           <div class="row">
             <div class="price col-md-12">
               <h5>
-                Sample Product</h5>
+                {{product.name}}</h5>
               <h5 class="price-text-color">
-                $199.99</h5>
+                {{product.price}}</h5>
             </div>
 
           </div>
           <div class="separator clear-left">
+
             <p class="btn-add">
-              <i class="fa fa-shopping-cart"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">Add to cart</a></p>
-            <p class="btn-details">
-              <i class="fa fa-list"></i><a href="http://www.jquery2dotnet.com" class="hidden-sm">More details</a></p>
+              
+              <button class="btn btn-success btn-sm" @click="addToCart(product)">
+              <i class="fa fa-shopping-cart"></i>
+              Add to Cart</button> 
+              
+            </p>
           </div>
           <div class="clearfix">
           </div>
@@ -32,8 +36,16 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
-  name: 'product-detail-card'
+  props: {
+    product: Object
+  },
+  name: 'product-detail-card',
+  methods: mapActions([
+    'addToCart'
+  ])
 }
 </script>
 
@@ -57,7 +69,7 @@ export default {
 }
 
 .col-item:hover .info {
-  background-color: #F5F5DC;
+  background-color: #d9f0f9;
 }
 
 .col-item .price {
