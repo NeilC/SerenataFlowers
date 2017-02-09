@@ -18,6 +18,8 @@ namespace SF.WebServer
             HttpConfiguration httpConfig = new HttpConfiguration();
             httpConfig.MapHttpAttributeRoutes();
 
+            httpConfig.MessageHandlers.Add(new ClientTagger());
+
             app.UseWebApi(httpConfig);
         }
     }

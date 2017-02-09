@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Serilog;
 using SF.WebServer.Model;
 
 namespace SF.WebServer.Api
@@ -23,6 +24,12 @@ namespace SF.WebServer.Api
                 new Product() { ID = 4, Name = "Bouquet Roses 4", Description = "bouquet of Roses 4"}
             };
 
+
+            if (Request.Properties.ContainsKey("cid"))
+                Log.Information("Client with {tag} listed content of cart", Request.Properties["cid"]);
+            else
+                Log.Warning("Client not tagged");
+
             return Ok(items);
         }
 
@@ -32,6 +39,7 @@ namespace SF.WebServer.Api
         [Route("add")]
         public IHttpActionResult AddItemToCart(Product product)
         {
+
 
             return Ok();
         }
