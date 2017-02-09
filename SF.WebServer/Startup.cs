@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Net.Http.Formatting;
 using System.Threading.Tasks;
 using System.Web.Http;
 using Microsoft.Owin;
@@ -16,9 +17,13 @@ namespace SF.WebServer
             app.UseCors(CorsOptions.AllowAll);
 
             HttpConfiguration httpConfig = new HttpConfiguration();
-            httpConfig.MapHttpAttributeRoutes();
 
+            httpConfig.MapHttpAttributeRoutes();
             httpConfig.MessageHandlers.Add(new ClientTagger());
+            httpConfig.Formatters
+                .JsonFormatter
+                .MediaTypeMappings
+                .Add(new RequestHeaderMapping("Accept", "text/html", StringComparison.InvariantCultureIgnoreCase, isValueSubstring: true, mediaType: "application/json"));
 
             app.UseWebApi(httpConfig);
         }

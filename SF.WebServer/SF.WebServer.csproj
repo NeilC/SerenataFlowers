@@ -92,6 +92,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Api\CartController.cs" />
+    <Compile Include="Api\ProductsController.cs" />
     <Compile Include="ClientTagger.cs" />
     <Compile Include="Model\Product.cs" />
     <Compile Include="Program.cs" />
