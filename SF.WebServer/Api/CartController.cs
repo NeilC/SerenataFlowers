@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
-using System.Web.Http.Results;
+using SF.WebServer.Model;
 
 namespace SF.WebServer.Api
 {
@@ -14,11 +14,43 @@ namespace SF.WebServer.Api
 
         [HttpGet]
         [Route("list")]
-        public Task<OkResult> ListContents()
+        public IHttpActionResult ListContents()
+        {
+            var items = new List<Product>() {
+                new Product() { ID = 1, Name = "Bouquet Roses 1", Description = "bouquet of Roses 1"},
+                new Product() { ID = 2, Name = "Bouquet Roses 2", Description = "bouquet of Roses 2"},
+                new Product() { ID = 3, Name = "Bouquet Roses 3", Description = "bouquet of Roses 3"},
+                new Product() { ID = 4, Name = "Bouquet Roses 4", Description = "bouquet of Roses 4"}
+            };
+
+            return Ok(items);
+        }
+
+
+
+        [HttpPost]
+        [Route("add")]
+        public IHttpActionResult AddItemToCart(Product product)
         {
 
+            return Ok();
+        }
 
-            return Task.FromResult(Ok());
+        [HttpDelete]
+        [Route("remove")]
+        public IHttpActionResult RemoveItemFromCart(int productIdToRemove)
+        {
+
+            return Ok();
+        }
+
+
+        [HttpPost]
+        [Route("clear")]
+        public IHttpActionResult ClearCart()
+        {
+
+            return Ok();
         }
 
     }
