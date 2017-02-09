@@ -17,10 +17,10 @@ namespace SF.WebServer.Api
         public IHttpActionResult All()
         {
             var items = new List<Product>() {
-                new Product() { ID = 1, Name = "Bouquet Roses 1", Description = "bouquet of Roses 1"},
-                new Product() { ID = 2, Name = "Bouquet Roses 2", Description = "bouquet of Roses 2"},
-                new Product() { ID = 3, Name = "Bouquet Roses 3", Description = "bouquet of Roses 3"},
-                new Product() { ID = 4, Name = "Bouquet Roses 4", Description = "bouquet of Roses 4"}
+                new Product() { ID = 1, Name = "Bouquet Roses 1", Description = "bouquet of Roses 1", Price = 12.00M},
+                new Product() { ID = 2, Name = "Bouquet Roses 2", Description = "bouquet of Roses 2", Price = 12.00M},
+                new Product() { ID = 3, Name = "Bouquet Roses 3", Description = "bouquet of Roses 3", Price = 12.00M},
+                new Product() { ID = 4, Name = "Bouquet Roses 4", Description = "bouquet of Roses 4", Price = 12.00M}
             };
 
             return Ok(items);
