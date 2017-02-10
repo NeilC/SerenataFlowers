@@ -1,5 +1,5 @@
 export const cartProducts = state => {
-  return state.shoppingCart.added.map(({ id, quantity }) => {
+  return state.cart.contents.map(({ id, quantity }) => {
     const product =
       state
         .products.all

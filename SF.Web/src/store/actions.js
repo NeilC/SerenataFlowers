@@ -7,7 +7,7 @@ export const getProducts = ({ commit }) => {
 }
 
 export const addToCart = ({ commit }, product) => {
-  if (product.inventory > 0) {
+  if (product.stock > 0) {
     commit('ADD_TO_CART', product.id)
   }
 }

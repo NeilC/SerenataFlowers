@@ -1,3 +1,5 @@
+import cartApi from '../../api/cart.js'
+
 const state = {
   contents: []
 }
@@ -7,22 +9,26 @@ const mutations = {
 
   },
 
-  ADD_TO_CART (state, productId) {
-    const record = state.contents.find(product => product.id === productId)
+  ADD_TO_CART (state, productIdToAdd) {
+    const product = state.contents.find(product => product.id === productIdToAdd)
 
-    if (!record) {
-      state.added.push({
-        id: productId,
+    if (!product) {
+      state.contents.push({
+        id: productIdToAdd,
         quantity: 1
       })
     } else {
-      record.quantity++
+      product.quantity++
     }
+
+    cartApi.addToCart(productIdToAdd)
   },
 
-  REMOVE_FROM_CART (state, item) {
-    const index = state.contents.findIndex(contents => contents.id === item.id)
+  REMOVE_FROM_CART (state, productToRemove) {
+    const index = state.contents.findIndex(contents => contents.id === productToRemove.id)
     state.contents.splice(index, 1)
+
+    cartApi.removeFromCart(productToRemove.id)
   }
 }
 

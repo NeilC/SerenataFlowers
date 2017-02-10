@@ -49,7 +49,6 @@ export default {
 }
 </script>
 
-
 <style scoped>
 .col-item {
   border: 1px solid #E1E1E1;

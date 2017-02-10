@@ -8,5 +8,11 @@ const rootUrl = 'http://localhost:9092/'
 export default {
   list (cb) {
     Vue.http.get(rootUrl + 'cart/list').then(cb)
+  },
+  addToCart (productId, cb) {
+    Vue.http.post(rootUrl + 'cart/add', productId).then(cb)
+  },
+  removeFromCart (productId, cb) {
+    Vue.http.delete(rootUrl + 'cart/remove', productId).then(cb)
   }
 }
