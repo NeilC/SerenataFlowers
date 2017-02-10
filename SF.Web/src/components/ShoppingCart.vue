@@ -17,11 +17,12 @@
          <p>Description</p>
       </div>
     </div>
-
-    <hr>
+      <button v-if="cartProducts.length > 0" class="btn btn-xs btn-danger btn-block" @click="clearCart">Clear all items</button>    
+      
+      <hr>
 
     <ul class="list-group">
-      <li class="list-group-item">Total: {{total}}</li>
+      <li class="list-group-item">Total: {{total.toFixed(2)}}</li>
     </ul>
   </div>
 </template>
@@ -45,7 +46,8 @@ export default {
     })
   },
   methods: mapActions([
-    'removeFromCart'
+    'removeFromCart',
+    'clearCart'
   ])
 }
 </script>

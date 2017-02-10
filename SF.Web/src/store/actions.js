@@ -9,9 +9,13 @@ export const getProducts = ({ commit }) => {
 
 export const getSavedCart = ({ commit }) => {
   cartApi.list(response => {
-    console.log('list: ', response.body)
     commit('RETRIEVE_CART', response.body.contents)
   })
+}
+
+export const clearCart = ({ commit }) => {
+  cartApi.clearCart()
+  commit('CLEAR_CART')
 }
 
 export const addToCart = ({ commit }, product) => {

@@ -10,10 +10,13 @@ export default {
     Vue.http.get(rootUrl + 'cart/list').then(cb)
   },
   addToCart (productId, cb) {
-    console.log('adding product ', productId)
     Vue.http.post(rootUrl + 'cart/add/' + productId, {}).then(cb)
   },
   removeFromCart (productId, cb) {
     Vue.http.delete(rootUrl + 'cart/remove/' + productId, productId).then(cb)
+  },
+  clearCart (cb) {
+    Vue.http.post(rootUrl + 'cart/clear', {}).then(cb)
   }
+
 }

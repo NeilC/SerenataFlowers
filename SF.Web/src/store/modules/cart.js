@@ -6,6 +6,10 @@ const state = {
 }
 
 const mutations = {
+  CLEAR_CART (state) {
+    state.contents = []
+  },
+
   RETRIEVE_CART (state, products) {
     state.contents = products
   },

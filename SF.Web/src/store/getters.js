@@ -20,6 +20,6 @@ export const itemsQuantity = state => {
 
 export const total = state => {
   return cartProducts(state).reduce((total, item) => {
-    return total + (item.price * item.quantity)
+    return (total + (item.price * item.quantity))
   }, 0)
 }

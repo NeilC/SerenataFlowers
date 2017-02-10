@@ -18,6 +18,7 @@ const routes = [
 /* eslint-disable no-new */
 /* eslint-disable no-unused-vars */
 const router = new VueRouter({
+  mode: 'history',
   routes: routes
 })
 
