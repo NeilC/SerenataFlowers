@@ -1,12 +1,13 @@
 import cartApi from '../../api/cart.js'
 
 const state = {
-  contents: []
+  contents: [],
+  total: 0
 }
 
 const mutations = {
-  RETRIEVE_CART (state) {
-
+  RETRIEVE_CART (state, products) {
+    state.contents = products
   },
 
   ADD_TO_CART (state, productIdToAdd) {
@@ -20,8 +21,6 @@ const mutations = {
     } else {
       product.quantity++
     }
-
-    cartApi.addToCart(productIdToAdd)
   },
 
   REMOVE_FROM_CART (state, productToRemove) {

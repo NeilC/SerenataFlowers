@@ -3,16 +3,17 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 
-const rootUrl = 'http://localhost:9092/'
+const rootUrl = 'http://serenataflowers.com:9092/'
 
 export default {
   list (cb) {
     Vue.http.get(rootUrl + 'cart/list').then(cb)
   },
   addToCart (productId, cb) {
-    Vue.http.post(rootUrl + 'cart/add', productId).then(cb)
+    console.log('adding product ', productId)
+    Vue.http.post(rootUrl + 'cart/add/' + productId, {}).then(cb)
   },
   removeFromCart (productId, cb) {
-    Vue.http.delete(rootUrl + 'cart/remove', productId).then(cb)
+    Vue.http.delete(rootUrl + 'cart/remove/' + productId, productId).then(cb)
   }
 }

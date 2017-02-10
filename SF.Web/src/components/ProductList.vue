@@ -37,10 +37,12 @@ export default {
     products: state => state.products.all
   }),
   methods: mapActions([
-    'getProducts'
+    'getProducts',
+    'getSavedCart'
   ]),
   created () {
     this.getProducts()
+    this.getSavedCart()
   }
 }
 </script>

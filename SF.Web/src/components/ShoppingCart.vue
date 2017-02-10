@@ -6,7 +6,13 @@
         <a href="#"><img alt="64x64" class="media-object" src="http://placehold.it/64x64"></a>
       </div>
       <div class="media-body">
-        <h4 class="media-heading"> {{product.name}} </h4>
+        <span>
+          <h4 class="media-heading"> {{product.name}} 
+          <button class="btn btn-xs btn-warning" @click="removeFromCart(product)"> <i class="fa fa-close"></i> </button>
+          
+          </h4>          
+        </span>
+
          <p>{{product.price}} - quantity: {{product.quantity}}</p>
          <p>Description</p>
       </div>
@@ -22,7 +28,7 @@
 
 
 <script>
-import { mapState, mapGetters } from 'vuex'
+import { mapState, mapGetters, mapActions } from 'vuex'
 export default {
   name: 'shoppingcart',
   data () {
@@ -31,12 +37,16 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'cartProducts'
+      'cartProducts',
+      'total'
     ]),
     ...mapState({
       products: state => state.products.all
     })
-  }
+  },
+  methods: mapActions([
+    'removeFromCart'
+  ])
 }
 </script>
 
