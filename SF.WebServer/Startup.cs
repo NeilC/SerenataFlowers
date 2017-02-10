@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Net.Http.Formatting;
+using System.Reflection;
 using System.Threading.Tasks;
 using System.Web.Http;
+using Autofac;
+using Autofac.Integration.WebApi;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Cors;
 using Microsoft.Owin.FileSystems;
 using Microsoft.Owin.StaticFiles;
 using Newtonsoft.Json.Serialization;
+using SF.WebServer.Api;
 
 [assembly: OwinStartup(typeof(SF.WebServer.Startup))]
 
@@ -18,6 +22,9 @@ namespace SF.WebServer
         public void Configuration(IAppBuilder app)
         {
             app.UseCors(CorsOptions.AllowAll);
+
+
+
 
             HttpConfiguration httpConfig = new HttpConfiguration();
 
@@ -30,6 +37,18 @@ namespace SF.WebServer
                 .JsonFormatter
                 .MediaTypeMappings
                 .Add(new RequestHeaderMapping("Accept", "text/html", StringComparison.InvariantCultureIgnoreCase, isValueSubstring: true, mediaType: "application/json"));
+
+
+            var builder = new ContainerBuilder();
+
+            builder.RegisterType<MemCartRepository>().As<ICartRepository>();
+            builder.RegisterType<MemProductRepository>().As<IProductRepository>();
+
+
+            builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
+
+            var container = builder.Build();
+            httpConfig.DependencyResolver = new AutofacWebApiDependencyResolver(container);
 
             app.UseWebApi(httpConfig);
 
