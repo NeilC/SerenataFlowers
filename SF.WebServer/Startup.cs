@@ -5,6 +5,8 @@ using System.Web.Http;
 using Microsoft.Owin;
 using Owin;
 using Microsoft.Owin.Cors;
+using Microsoft.Owin.FileSystems;
+using Microsoft.Owin.StaticFiles;
 using Newtonsoft.Json.Serialization;
 
 [assembly: OwinStartup(typeof(SF.WebServer.Startup))]
@@ -30,6 +32,13 @@ namespace SF.WebServer
                 .Add(new RequestHeaderMapping("Accept", "text/html", StringComparison.InvariantCultureIgnoreCase, isValueSubstring: true, mediaType: "application/json"));
 
             app.UseWebApi(httpConfig);
+
+            var fileSystem = new PhysicalFileSystem("./app");
+            app.UseFileServer(new FileServerOptions
+            {
+                EnableDirectoryBrowsing = true,
+                FileSystem = fileSystem
+            });
         }
     }
 

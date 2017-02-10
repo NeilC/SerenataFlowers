@@ -19,6 +19,15 @@ namespace SF.WebServer.Api
                 new Product() { ID = 4, Name = "Bouquet Roses 4", Description = "bouquet of Roses 4", Price = 12.01M, Stock = 10}
             };
 
+        IProductRepository ProductRepository { get; set; }
+        ICartRepository CartRepository { get; set; }
+
+
+        public CartController(IProductRepository productRepository, ICartRepository cartRepository)
+        {
+            ProductRepository = productRepository;
+            CartRepository = cartRepository;
+        }
 
         [HttpGet]
         [Route("list")]
@@ -32,12 +41,12 @@ namespace SF.WebServer.Api
 
 
             var cartId = Request.Properties["cid"] as string;
-            var cart = Program.CartRepository.FirstOrDefault(c => c.ID.ToString() == cartId.ToString());
+            var cart = CartRepository.GetById(cartId);
 
             if (cart == null)
             {
-                cart = new Cart(Guid.Parse(cartId));
-                Program.CartRepository.Add(cart);
+                cart = new Cart(Guid.Parse(cartId), ProductRepository);
+                CartRepository.Add(cart);
             }
 
             return Ok(cart);
@@ -54,15 +63,16 @@ namespace SF.WebServer.Api
             if (cartId == null)
                 return BadRequest();
 
-            var cart = Program.CartRepository.FirstOrDefault(c => c.ID.ToString() == cartId.ToString());
+            var cart = CartRepository.GetById(cartId);
+
 
             if (cart == null)
             {
-                cart = new Cart(Guid.Parse(cartId));
-                Program.CartRepository.Add(cart);
+                cart = new Cart(Guid.Parse(cartId), ProductRepository);
+                CartRepository.Add(cart);
             }
 
-            var product = items.FirstOrDefault(p => p.ID == productId);
+            var product = ProductRepository.GetById(productId);
 
             if (product == null || product.Stock < 1) return NotFound();
 
@@ -79,11 +89,12 @@ namespace SF.WebServer.Api
             if (cartId == null)
                 return BadRequest();
 
-            var cart = Program.CartRepository.FirstOrDefault(c => c.ID.ToString() == cartId.ToString());
+            var cart = CartRepository.GetById(cartId);
+
             if (cart == null)
             {
-                cart = new Cart(Guid.Parse(cartId));
-                Program.CartRepository.Add(cart);
+                cart = new Cart(Guid.Parse(cartId), ProductRepository);
+                CartRepository.Add(cart);
             }
 
             cart.RemoveFromCart(productId);
@@ -99,7 +110,7 @@ namespace SF.WebServer.Api
             if (cartId == null)
                 return BadRequest();
 
-            var cart = Program.CartRepository.FirstOrDefault(c => c.ID.ToString() == cartId.ToString());
+            var cart = CartRepository.GetById(cartId);
             cart?.ClearCart();
 
 

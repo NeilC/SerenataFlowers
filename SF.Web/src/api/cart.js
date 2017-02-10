@@ -3,7 +3,7 @@ import VueResource from 'vue-resource'
 
 Vue.use(VueResource)
 
-const rootUrl = 'http://serenataflowers.com:9092/'
+const rootUrl = 'http://localhost:9092/'
 
 export default {
   list (cb) {

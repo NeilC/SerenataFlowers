@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using SF.WebServer.Api;
 
 namespace SF.WebServer.Model
 {
@@ -10,17 +11,19 @@ namespace SF.WebServer.Model
     {
 
         public Guid ID { get; set; }
+        public IProductRepository ProductRepository { get; set; }
         public List<CartProduct> Contents { get; private set; }
         public decimal SubTotal { get; private set; }
 
 
 
-        public Cart(Guid CartId)
+        public Cart(Guid CartId, IProductRepository productRepository)
         {
             if (CartId == null)
                 throw new ArgumentException("Cart needs an ID");
 
             ID = CartId;
+            ProductRepository = productRepository;
             Contents = new List<CartProduct>();
         }
 
@@ -62,7 +65,7 @@ namespace SF.WebServer.Model
             SubTotal = 0M;
             foreach (var cartProduct in Contents)
             {
-                var product = Program.ProductsRepository.FirstOrDefault(p => p.ID == cartProduct.ID);
+                var product = ProductRepository.GetById(cartProduct.ID);
 
                 if (product != null)
                     SubTotal += product.Price * cartProduct.Quantity;
