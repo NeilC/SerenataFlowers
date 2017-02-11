@@ -77,6 +77,7 @@ namespace SF.WebServer.Api
             if (product == null || product.Stock < 1) return NotFound();
 
             cart.AddToCart(product);
+            Log.Information("Client {tag} added {@product} to thier cart", cartId, product);
             return Ok();
         }
 
@@ -98,6 +99,8 @@ namespace SF.WebServer.Api
             }
 
             cart.RemoveFromCart(productId);
+            Log.Information("Client {tag} removed product with id {productId} from thier cart", cartId, productId);
+
             return Ok();
         }
 
@@ -113,6 +116,7 @@ namespace SF.WebServer.Api
             var cart = CartRepository.GetById(cartId);
             cart?.ClearCart();
 
+            Log.Information("Client {tag} cleared thier cart", cartId);
 
             return Ok();
         }

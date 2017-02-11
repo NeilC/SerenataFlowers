@@ -1,22 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Microsoft.Owin.Hosting;
 using Serilog;
-using SF.WebServer.Api;
-using SF.WebServer.Model;
 
 namespace SF.WebServer
 {
     class Program
     {
-
-
-
-
-
         static void Main(string[] args)
         {
             Log.Logger = new LoggerConfiguration()
@@ -24,11 +13,13 @@ namespace SF.WebServer
                 .CreateLogger();
 
 
+            var serverUrl = "http://localhost:9092/";
 
-
-            using (WebApp.Start<Startup>("http://localhost:9092/"))
+            using (WebApp.Start<Startup>(serverUrl))
             {
-                Log.Information("Server Started at http://localhost:9092");
+                Log.Information("Server Started at {url}", serverUrl);
+                Log.Information("You may navigate to this url to open up the cart");
+
                 Log.Information("Press any key to shutdown server");
 
                 Console.ReadKey();
